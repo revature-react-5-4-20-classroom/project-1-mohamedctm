@@ -8,7 +8,7 @@ import {Logout} from './components/default/Logout';
 import Home from './components/default/Home';
 import NoMatch from './components/default/NoMatch';
 import Reimbursement from './components/reimbursementComponenet';
-import users from './components/usersComponenet';
+import Users from './components/usersComponenet';
 
 
 
@@ -69,16 +69,18 @@ export class App extends React.Component<any, IAppState> {
         <Route path="/" exact>
           <Home />
         </Route>  
-       <Route exact path="/login">
+        { <Route exact path="/login">
           <LoginComponent  updateUser={this.updateUser} />
-        </Route>
+        </Route>}
         { G && <Route exact path="/logout">
           <Logout updateUser={this.removeUser}/>
         </Route>}
         { G && <Route path='/reimbursements' exact >
-          <Reimbursement id={this.state.id} />
+          <Reimbursement userRole={G.role} id={this.state.id}  />
           </Route>}
-      { G && <Route path='/employees' exact component={users} />}
+      { G && <Route path='/employees'  exact >
+        <Users userRole={G?.role} userId={G?.id} />
+        </Route>}
         <Route><NoMatch updateUser={this.updateUser} /></Route>
       </Switch>
       </div>

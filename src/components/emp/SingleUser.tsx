@@ -23,7 +23,7 @@ export class SingleUser extends React.Component<any, IBooksDisplayState> {
     }
   }
 
-  async componentWillMount() {
+  async UNSAFE_componentWillMount() {
     
     try {
       this.setState({
@@ -53,7 +53,7 @@ export class SingleUser extends React.Component<any, IBooksDisplayState> {
     })
   }
 
-  async componentDidUpdate() {
+  async UNSAFE_componentWillReceiveProps() {
     
     try {
       this.setState({

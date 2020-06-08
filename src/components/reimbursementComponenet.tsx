@@ -5,35 +5,44 @@ import {Paa} from './rem/patching';
 import { Reimbursement } from '../models/Reimbursement';
 import {Authored} from './rem/author';
 import {Stat} from './rem/bystatus';
+import { Allx } from './rem/RemAllx';
+import { Allxx } from './rem/RemAllxx';
 
-interface IAppState {
-    id:any
-    // userid:number;
-    // single: any;
-    // levelup: Reimbursement[] | any;
-  }
-//   interface IApppProps {
+// interface IAppState {
 //     id:number|any;
+//     userRole:string|any;
+//     // userid:number;
+//     // single: any;
+//     // levelup: Reimbursement[] | any;
 //   }
+// //   interface IApppProps {
+// //     id:number|any;
+// //   }
 
-export default class users extends React.Component<IAppState,any> {
+export default class users extends React.Component<any,any> {
 
 constructor(props:any){
     super(props);
     this.state = {
         id: this.props.id,
         current: this.props.id,
+        userRole: this.props.userRole,
         value1: -1,
         input: null,
         value2: 1,
         input2: null,
         handleChange : this.handleChange.bind(this),
         handleSubmit : this.handleSubmit.bind(this),
+        handleChange2 : this.handleChange2.bind(this),
+        handleSubmit2 : this.handleSubmit2.bind(this),
         random: false,
         random1: false,
+        randomx1: false,
+        randomxx1: false,
         random2: false,
         random3:false,
         random4:false,
+        single:[],
     }
 }
 // shouldComponentUpdate(nextProps: any, nextState: any) {
@@ -44,6 +53,8 @@ showIn = () => {
     this.setState({
       random: true,
       random1: false,
+      randomx1: false,
+      randomxx1: false,
       random2:false,
       random3:false ,
       random4:false
@@ -57,16 +68,42 @@ showIn = () => {
       random1: true,
       random2 :false,
       random3:false,
+      random4:false,
+      randomx1: false,
+      randomxx1: false
+    })
+  }
+  showAllx = () => {
+    this.setState({
+      random: false ,
+      randomx1: true,
+      randomxx1: false,
+      random1: false,
+      random2 :false,
+      random3:false,
+      random4:false 
+    })
+  }
+  showAllxx = () => {
+    this.setState({
+      random: false ,
+      randomx1: false,
+      randomxx1: true,
+      random1: false,
+      random2 :false,
+      random3:false,
       random4:false 
     })
   }
   showS = () => {
     this.setState({
         random3: true,
-      random: false ,
-      random1: false,
+        random: false ,
+        random1: false,
+        randomx1: false,
+        randomxx1: false,
       random2 :false,
-      random4:false  
+      random4:false,
     })
   }
 
@@ -76,7 +113,10 @@ showIn = () => {
       random2: true,
       random1: false,
       random3:false,
-      random4:false
+      random4:false,
+      randomx1: false,
+      randomxx1: false,
+
   
     })
   }
@@ -88,6 +128,8 @@ showIn = () => {
       random1: false,
       random3:false,
       random4: true,
+      randomx1: false,
+      randomxx1: false
   
     })
   }
@@ -106,7 +148,8 @@ changevalue = () => {
   }
 
   handleChange = (e:any) => {
-    this.setState({input: e.target.value});
+    this.setState({value1: e.target.value});
+
   }
 
   handleSubmit = (event:any)=> {
@@ -115,7 +158,7 @@ changevalue = () => {
   }
 
   handleChange2 = (e:any) => {
-    this.setState({input2: e.target.value});
+    this.setState({value2: e.target.value});
 
   }
 
@@ -127,14 +170,22 @@ changevalue = () => {
     render(){
         return(
             <>
+           {(this.props.userRole === "admin" || this.props.userRole === "finance-manager") &&
             <div className="panel">
-            <span  onClick={this.showUp}> create new  </span>
+            <span  onClick={this.showUp}> create new </span>
             <span  onClick={this.showAll}>All </span>
             <span className="nottt">look up :  </span>
             <span  onClick={this.showIn}>by ID </span>
             <span  onClick={this.showS}>by status </span>
             <span  onClick={this.showP}>update </span>
-            </div>
+            </div>}
+
+            {(this.props.userRole === "employee") &&
+            <div className="panel">
+            <span  onClick={this.showUp}> create new </span>
+            <span  onClick={this.showAllx}>Pending </span>
+            <span  onClick={this.showAllxx}>Resolved </span>
+            </div>}
 
           { this.state.random &&   <div className="dif">
                 <form onSubmit={this.handleSubmit} className="narrow">
@@ -148,7 +199,7 @@ changevalue = () => {
                 <form onSubmit={this.handleSubmit2} className="narrow">
                 <label>Reimbursement Status: </label>
                 <select onChange={this.handleChange2} >
-                <option value="">choose</option>
+                <option value="0">choose</option>
                 <option value="1">Pending</option>
                 <option value="2">Aprroved</option>
                 <option value="3">Denied</option>
@@ -161,8 +212,10 @@ changevalue = () => {
 
               
             { this.state.random && <Authored userid={this.state.value1}/>}
-            { this.state.random3 && <Stat userid={this.state.value2}/>}
+            { this.state.random3 && <Stat single={this.state.single} userid={this.state.value2}/>}
             { this.state.random1 && <All current={this.state.current} />}
+            { this.state.randomx1 && <Allx current={this.state.id} />}
+            { this.state.randomxx1 && <Allxx current={this.state.id} />}
             { this.state.random2 && <UpdateRe id={this.state.id} updateUserxx={this.updateUserxx}/>}
             { this.state.random4 && <Paa id={this.state.id} updateUserxx={this.updateUserxx}/>}
                </div>          

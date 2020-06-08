@@ -58,19 +58,21 @@ export async function updatexx(a:any,b:any,c:any,d:any,e:any,f:any, g:number) : 
 export async function authorRe(id:number) : Promise<Reimbursement[] | any> {
   const response = await libraryClient.get(`reimbursements/author/userid/${id}`);
   console.log(response.data);
-  return response.data.map((userObj: any) => {
-    const {reimbursementId, author, amount, dateSubmitted, dateResolved, description, resolver, status, type} = userObj;
-    return new Reimbursement(reimbursementId, author, amount, dateSubmitted, dateResolved,description, resolver,status, type);
-  });
+  return response.data;
+  // return response.data.map((userObj: any) => {
+  //   const {reimbursementId, author, amount, dateSubmitted, dateResolved, description, resolver, status, type} = userObj;
+  //   return new Reimbursement(reimbursementId, author, amount, dateSubmitted, dateResolved,description, resolver,status, type);
+  // });
 }
 
 export async function patching(a:any,b:any,c:any,d:any,e:any,f:any) : Promise<Reimbursement[] | any> {
-  const response = await libraryClient.patch(`reimbursements/`,{reimbursementid:!!(a)?a:null,author:!!(b)?b:null,amount:!!(c)?c:null,description:!!(d)?d:null,status:!!(e)?e:null,type:!!(f)?f:null});
+  const response = await libraryClient.patch(`reimbursements/`,{reimbursementid:!!(a)?a:null,resolver:!!(b)?b:null,amount:!!(c)?c:null,description:!!(d)?d:null,status:!!(e)?e:null,type:!!(f)?f:null});
   console.log(response.data);
-  return response.data.map((userObj: any) => {
-    const {reimbursementId, author, amount, dateSubmitted, dateResolved, description, resolver, status, type} = userObj;
-    return new Reimbursement(reimbursementId, author, amount, dateSubmitted, dateResolved,description, resolver,status, type);
-  });
+  return response.data;
+  // return response.data.map((userObj: any) => {
+  //   const {reimbursementId, author, amount, dateSubmitted, dateResolved, description, resolver, status, type} = userObj;
+  //   return new Reimbursement(reimbursementId, author, amount, dateSubmitted, dateResolved,description, resolver,status, type);
+  // });
 }
 
 export async function sta(id:number) : Promise<Reimbursement[] | any> {

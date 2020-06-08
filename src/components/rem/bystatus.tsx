@@ -16,7 +16,7 @@ export class Stat extends React.Component<any, IBooksDisplayState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      single: 'fetching reimbursements by status-- choose a status and hit Fetch',
+      single: this.props.single,
       isError: false,
       errorMessage: '',
     }
@@ -30,10 +30,10 @@ export class Stat extends React.Component<any, IBooksDisplayState> {
       }
 
   shouldComponentUpdate(nextProps: any, nextState: any) {
-    return this.props.userid !== nextState.userid;
+    return this.props.single !== nextState.single;
   }
 
-  async componentDidUpdate() {
+  async UNSAFE_componentWillReceiveProps() {
     try {
 
       this.setState({
@@ -77,10 +77,9 @@ export class Stat extends React.Component<any, IBooksDisplayState> {
       return <Err2 err={this.state.errorMessage}/>
     }else{
 
-        return (data.map((u:Reimbursement|any) =>{
+        return (data.map((u:Reimbursement|any,x:number) =>{
             return(
-                <Review id={u.reimbursementId} author={u.author} amount={u.amount} resolver={u.resolver} status={u.status} type={u.type} description={u.description} date1={u.dateSubmitted} date2={u.dateResolved} />
-
+                <Review key={x} thekey={x} id={u.reimbursementId} author={u.author} amount={u.amount} resolver={u.resolver} status={u.status} type={u.type} description={u.description} date1={u.dateSubmitted} date2={u.dateResolved} />
 
 )      
 })

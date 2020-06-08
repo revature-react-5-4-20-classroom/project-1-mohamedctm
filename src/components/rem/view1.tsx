@@ -5,7 +5,7 @@ export  class Review extends React.Component<any> {
     render(){
         return(
             <>
-            <div key={this.props.access} className="col">
+            <div key={this.props.thekey || Math.floor(Math.random() * 1000)} className="col">
             <span>Reimbursement #  <span>{this.props.id}</span></span>  
             <span>author  <span>{this.props.author}</span></span>  
             <span>amount  <span>{this.props.amount}</span></span>  

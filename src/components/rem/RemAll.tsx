@@ -52,9 +52,9 @@ export class All extends React.Component<any, IBooksDisplayState> {
     if(!this.state.isError) {
       //map to a string so quicktable can render this.
       
-      return this.state.members.map((u:Reimbursement)=>{
+      return this.state.members.map((u:Reimbursement,x:number)=>{
      return(
-      <Review current={this.props.current} id={u.reimbursementId} author={u.author} amount={u.amount} resolver={u.resolver} status={u.status} type={u.type} description={u.description} date1={u.dateSubmitted} date2={u.dateResolved} />
+      <Review key={x} thekey={x} current={this.props.current} id={u.reimbursementId} author={u.author} amount={u.amount} resolver={u.resolver} status={u.status} type={u.type} description={u.description} date1={u.dateSubmitted} date2={u.dateResolved} />
 
          )      
          })

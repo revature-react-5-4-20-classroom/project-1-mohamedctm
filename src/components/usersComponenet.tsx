@@ -4,16 +4,22 @@ import {SingleUser} from './emp/SingleUser';
 import {UpdateUsers} from './emp/updatex';
 import { User } from '../models/User';
 
+import {UpdateUsersx} from './emp/updatexx';
+import {AllUsersx} from './emp/UsersAllx';
 
 
 
-interface IAppState {
-    userid:number;
-    single: any;
-    levelup: User[] | any;
-  }
 
-export default class users extends React.Component<IAppState,any> {
+
+// interface IAppState {
+//     userid:number;
+//     single: any;
+//     levelup: User[] | any;
+//     userRole: any;
+//     userId: any;
+//   }
+
+export default class users extends React.Component<any,any> {
 
 constructor(props:any){
     super(props);
@@ -27,7 +33,11 @@ constructor(props:any){
         random: false,
         random1: false,
         random2: false,
-        good:false
+        randomx1: false,
+        randomx2: false,
+        good:false,
+        userRole: this.props.userRole,
+        userId : this.props.userId
     }
 }
 // shouldComponentUpdate(nextProps: any, nextState: any) {
@@ -47,6 +57,20 @@ showIn = () => {
       random: false ,
       random1: true,
       random2 :false  
+    })
+  }
+
+  showx1 = () => {
+    this.setState({
+      randomx1: true,
+      randomx2 :false  
+    })
+  }
+
+  showx2 = () => {
+    this.setState({
+      randomx1: false,
+      randomx2 :true  
     })
   }
 
@@ -72,7 +96,7 @@ changevalue = () => {
   }
 
   handleChange = (e:any) => {
-    this.setState({input: e.target.value,
+    this.setState({value: e.target.value,
         good: true   
     });
     this.setState({random : true, random1:false})
@@ -87,11 +111,18 @@ changevalue = () => {
     render(){
         return(
             <>
-            <div className="panel">
+            { (this.props.userRole === "admin" || this.props.userRole === "finance-manager") &&
+            <div className="panel" id="admin page">
             <span  onClick={this.showAll}>All </span>
             <span  onClick={this.showUp}> Update  </span>
             <span  onClick={this.showIn}>look up </span>
-            </div>
+            </div>}
+
+            { (this.props.userRole === "employee") &&
+            <div className="panel" id="admin page">
+            <span  onClick={this.showx1}>Profile </span>
+            <span  onClick={this.showx2}> Update Profile  </span>
+            </div>}
 
           { this.state.random &&   <div className="dif">
                 <form onSubmit={this.handleSubmit} className="narrow">
@@ -106,6 +137,9 @@ changevalue = () => {
             { this.state.random && <SingleUser userid={this.state.value} good={this.state.good}/>}
             { this.state.random1 && <AllUsers />}
             { this.state.random2 && <UpdateUsers updateUserxx={this.updateUserxx}/>}
+
+            { this.state.randomx1 && <AllUsersx getUser={this.state.userId} />}
+            { this.state.randomx2 && <UpdateUsersx getUser={this.state.userId} updateUserxx={this.updateUserxx}/>}
                </div>          
             </>
             

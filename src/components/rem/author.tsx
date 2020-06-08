@@ -9,6 +9,7 @@ interface IBooksDisplayState {
   authorr: Reimbursement[]|any;
   isError: boolean;
   errorMessage: string;
+  userid:number;
 }
 
 export class Authored extends React.Component<any, IBooksDisplayState> {
@@ -16,15 +17,16 @@ export class Authored extends React.Component<any, IBooksDisplayState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      authorr: 'fetching user by id',
+      authorr: [],
       isError: false,
       errorMessage: '',
+      userid: this.props.userid,
     }
   }
 
   async componentDidMount() {
     this.setState({
-    authorr: await authorRe(this.props.userid),
+    authorr: await authorRe(this.props.userid || this.state.userid),
           isError: false
         })
       }
@@ -35,14 +37,13 @@ export class Authored extends React.Component<any, IBooksDisplayState> {
 
  
 
-  async componentDidUpdate() {
+  async UNSAFE_componentWillReceiveProps() {
     try {
 
       this.setState({
-        authorr: await authorRe(this.props.userid),
+        authorr: await authorRe(this.props.userid || this.state.userid),
         isError: false
       })
-
     } catch (e) {
       // We set the error information in our state.
       // This will let us render something about the error to the end user
@@ -77,9 +78,9 @@ export class Authored extends React.Component<any, IBooksDisplayState> {
     if(this.state.isError){
         return <Err1 err={this.state.errorMessage} />
     }else{
-        return (data.map((u:Reimbursement|any) =>{
+        return (data.map((u:Reimbursement|any,x:number) =>{
             return(
-     <Review id={u.reimbursementId} author={u.author} amount={u.amount}
+     <Review key={x} thekey={x} id={u.reimbursementId} author={u.author} amount={u.amount}
       resolver={u.resolver} status={u.status} type={u.type} description={u.description}
        date1={u.dateSubmitted} date2={u.dateResolved} />
                 )      

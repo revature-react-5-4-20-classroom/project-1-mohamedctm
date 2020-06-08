@@ -65,8 +65,7 @@ span.show{
     width:120px;height:30px;text-align:center;padding:.5em;line-height:30px;
 }
 span.show:hover{ background:#eaeaea;color:#333;cursor:pointer}
-.panel span.nottt{line-height:15px;color:#000;font-weight:bold;border-left:1px solid #e2e2e2}
-.view{display:none;}
+
 div.dif form{ width:90%;margin:1em auto;display:flex;-webkit-disaply:flex;flex-flow:row wrap;margin:0 auto}
 div.dif form * {order:1;color:#999;font-size:.9em;margin:.5em; width:80px;}
 div.dif form input{order:1;display:block;width:20px;height:30px;line-height:30px;;font-size:1em;text-align:center}
@@ -79,9 +78,11 @@ border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;line-height:2
 
 .active{color:#fff}
 
-.panel{display:flex;-webkit-display:flex;-moz-display:flex;flex-flow: row wrap start;}
+.panel{display:flex;-webkit-display:flex;-moz-display:flex;flex-direction: row;-moz-flex-direction:row;-webkit-flex-direction: row;flex-wrap: wrap;-webkit-flex-wrap:wrap; }
 .panel span {display:inline-block;color:#999;font-size:.9em;margin:.4em .8em;order:1;min-width:80px;padding:.5em;text-align:center}
 .panel span:hover {cursor:pointer; background:#efefef;color:#000}
+.panel span.nottt{order:1;line-height:15px;color:#000;font-weight:bold;border-left:1px solid #e2e2e2}
+.view{display:none;}
 
 h3 span{
    color:#009988;font-size:1em;font-weight:bold;padding:.2em .5em;cursor:pointer;

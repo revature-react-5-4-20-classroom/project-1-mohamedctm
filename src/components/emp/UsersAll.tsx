@@ -5,7 +5,7 @@ import { Eview } from './view';
 // import { QuickTable } from './QuickTable';
 
 interface IBooksDisplayState {
-  members: User[];
+  members: User[]|any;
   isError: boolean;
   errorMessage: string;
 }
@@ -36,6 +36,14 @@ export class AllUsers extends React.Component<any, IBooksDisplayState> {
       })
     }
   }
+   componentWillUnmount() {
+
+      this.setState({
+        members: null,
+        isError: false,
+        errorMessage: '',
+      })
+  }
 
   
 
@@ -50,13 +58,12 @@ export class AllUsers extends React.Component<any, IBooksDisplayState> {
     if(!this.state.isError) {
       //map to a string so quicktable can render this.
       
-      return (this.state.members.map((u:User|any) =>{
+      return (this.state.members.map((u:User|any,x:number) =>{
      return(
-         <>
-         <Eview key={Math.floor((Math.random() * 3220) + 1)} id={u.id} username={u.username} pass={u.password}
+         <Eview key={x} thekey={x} id={u.id} username={u.username} pass={u.password}
           firstname={u.firstname} lastname={u.lastname}
            email={u.email} role={u.role} />
-          </>
+
          )      
          })
          )

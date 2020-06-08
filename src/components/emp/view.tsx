@@ -5,7 +5,7 @@ export  class Eview extends React.Component<any> {
     render(){
         return(
             <>
-            <div className="col">
+            <div key={Math.floor(Math.random() * 10)} className="col">
             <span>id:  {this.props.id}</span>  
           <span>username:  {this.props.username}</span>  
           <span>password:  {this.props.pass}</span>  
