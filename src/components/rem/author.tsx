@@ -2,7 +2,7 @@ import React from 'react';
 import { authorRe } from '../../api/LibraryClient';
 import { Reimbursement } from '../../models/Reimbursement';
 import {Review} from './view1';
-import { Err1, ErrS } from '../../errors/error1';
+import { Err1 } from '../../errors/error1';
 
 
 interface IBooksDisplayState {
@@ -20,19 +20,19 @@ export class Authored extends React.Component<any, IBooksDisplayState> {
       authorr: [],
       isError: false,
       errorMessage: '',
-      userid: this.props.userid,
+      userid: isNaN(this.props.userid)? 100: this.props.userid,
     }
   }
 
   async componentDidMount() {
     this.setState({
-    authorr: await authorRe(this.props.userid || this.state.userid),
+    authorr: await authorRe(isNaN(this.props.userid)? 100 :this.props.userid),
           isError: false
         })
       }
 
   shouldComponentUpdate(nextProps: any, nextState: any) {
-    return this.props.userid !== nextState.userid;
+    return this.props.authorr !== nextState.authorr;
   }
 
  
@@ -41,7 +41,7 @@ export class Authored extends React.Component<any, IBooksDisplayState> {
     try {
 
       this.setState({
-        authorr: await authorRe(this.props.userid || this.state.userid),
+        authorr: await authorRe(isNaN(this.props.userid)? 100 : this.props.userid ),
         isError: false
       })
     } catch (e) {
@@ -70,14 +70,16 @@ export class Authored extends React.Component<any, IBooksDisplayState> {
 
   render() {
 
-    const data = this.state.authorr;
-    if(typeof(data) === "string"){ 
-            return <ErrS data={data} err={this.state.errorMessage} />
-    }
+    
+    
 
     if(this.state.isError){
         return <Err1 err={this.state.errorMessage} />
     }else{
+      var data = this.state.authorr;
+      if(typeof(data) === "string"){ 
+        return <h3>{JSON.stringify(data)}</h3>
+        }
         return (data.map((u:Reimbursement|any,x:number) =>{
             return(
      <Review key={x} thekey={x} id={u.reimbursementId} author={u.author} amount={u.amount}

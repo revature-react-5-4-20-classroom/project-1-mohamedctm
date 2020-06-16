@@ -76,7 +76,7 @@ export class App extends React.Component<any, IAppState> {
           <Logout updateUser={this.removeUser}/>
         </Route>}
         { G && <Route path='/reimbursements' exact >
-          <Reimbursement userRole={G.role} id={this.state.id}  />
+          <Reimbursement userRole={G.role} id={this.state.id} xid={G.id}  />
           </Route>}
       { G && <Route path='/employees'  exact >
         <Users userRole={G?.role} userId={G?.id} />

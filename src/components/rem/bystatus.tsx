@@ -79,7 +79,7 @@ export class Stat extends React.Component<any, IBooksDisplayState> {
 
         return (data.map((u:Reimbursement|any,x:number) =>{
             return(
-                <Review key={x} thekey={x} id={u.reimbursementId} author={u.author} amount={u.amount} resolver={u.resolver} status={u.status} type={u.type} description={u.description} date1={u.dateSubmitted} date2={u.dateResolved} />
+                <Review who={this.props.who} resolverr={this.props.resolverr} key={x} thekey={x} id={u.reimbursementId} author={u.author} amount={u.amount} resolver={u.resolver} status={u.status} type={u.type} description={u.description} date1={u.dateSubmitted} date2={u.dateResolved} />
 
 )      
 })

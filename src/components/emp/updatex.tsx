@@ -3,6 +3,8 @@ import { User } from '../../models/User';
 import { updatexx } from '../../api/LibraryClient';
 import { Eview } from './view';
 import { Err1 } from '../../errors/error1';
+import  bcrypt from 'bcryptjs';
+
 // import { Route, Switch, Redirect} from 'react-router';
 
 //the updateUser prop takes a function that takes a user and returns voide
@@ -102,7 +104,7 @@ export class UpdateUsers extends React.Component<IUpdateComponentProps, ILoginCo
     event.preventDefault();
     console.log(event);
     try {
-      const levelup : User = await updatexx(this.state.username, this.state.password,this.state.firstname,this.state.lastname,this.state.email,this.state.role,this.state.userid);
+      const levelup : User = await updatexx(this.state.username, bcrypt.hashSync(this.state.password,1),this.state.firstname,this.state.lastname,this.state.email,this.state.role,this.state.userid);
       this.props.updateUserxx(levelup);
       this.setState({
           user: levelup,

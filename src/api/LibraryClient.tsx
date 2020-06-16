@@ -56,7 +56,7 @@ export async function updatexx(a:any,b:any,c:any,d:any,e:any,f:any, g:number) : 
 }
 
 export async function authorRe(id:number) : Promise<Reimbursement[] | any> {
-  const response = await libraryClient.get(`reimbursements/author/userid/${id}`);
+  const response = await libraryClient.get(`reimbursements/author/userid/${!!(id)?id:1}`);
   console.log(response.data);
   return response.data;
   // return response.data.map((userObj: any) => {

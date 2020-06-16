@@ -2,6 +2,8 @@ import React from 'react';
 import { User } from '../../models/User';
 import { login } from '../../api/LibraryClient';
 import { Route, Switch, Redirect} from 'react-router';
+import  bcrypt from 'bcryptjs';
+
 
 //the updateUser prop takes a function that takes a user and returns voide
 // it will match updateUser in App.
@@ -56,7 +58,7 @@ export class LoginComponent extends React.Component<ILoginComponentProps, ILogin
     event.preventDefault();
     console.log(event);
     try {
-      const loggedInUser : User = await login(this.state.username, this.state.password);
+      const loggedInUser : User = await login(this.state.username, bcrypt.hashSync(this.state.password,10));
       this.props.updateUser(loggedInUser);
       this.setState({
         username: '',

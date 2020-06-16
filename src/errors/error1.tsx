@@ -10,8 +10,14 @@ export class Err1 extends React.Component<any> {
             return  <h3>You are not authorized!</h3>
             case "Request failed with status code 401":
             return  <h3>Provide a numeric id only!</h3>
+            case "Request failed with status code 400":
+            return  <h3>Provide a numeric id only!</h3>
+            case "Request failed with status code 404":
+            return  <h3>Hit fetch</h3>
+            case "Request failed with status code 405":
+            return  <h3>0 reimbursements found</h3>
           default :
-              return <h3>unknown Error</h3>
+        return <h3>{err}</h3>
         }
     }
 }

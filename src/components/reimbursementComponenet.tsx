@@ -27,7 +27,7 @@ constructor(props:any){
         id: this.props.id,
         current: this.props.id,
         userRole: this.props.userRole,
-        value1: -1,
+        value1: 1,
         input: null,
         value2: 1,
         input2: null,
@@ -104,6 +104,8 @@ showIn = () => {
         randomxx1: false,
       random2 :false,
       random4:false,
+      value1:1,
+      value2:1
     })
   }
 
@@ -116,6 +118,8 @@ showIn = () => {
       random4:false,
       randomx1: false,
       randomxx1: false,
+      value1:1,
+      value2:1
 
   
     })
@@ -212,7 +216,7 @@ changevalue = () => {
 
               
             { this.state.random && <Authored userid={this.state.value1}/>}
-            { this.state.random3 && <Stat single={this.state.single} userid={this.state.value2}/>}
+            { this.state.random3 && <Stat who={this.props.userRole} resolverr={this.props.xid} single={this.state.single} userid={this.state.value2}/>}
             { this.state.random1 && <All current={this.state.current} />}
             { this.state.randomx1 && <Allx current={this.state.id} />}
             { this.state.randomxx1 && <Allxx current={this.state.id} />}
