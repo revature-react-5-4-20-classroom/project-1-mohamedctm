@@ -1,14 +1,13 @@
 import React from 'react';
-import { User } from '../../models/User';
+import { Writer } from '../../model/Writer';
 import { login } from '../../api/LibraryClient';
 import { Route, Switch, Redirect} from 'react-router';
-import  bcrypt from 'bcryptjs';
 
 
-//the updateUser prop takes a function that takes a user and returns voide
-// it will match updateUser in App.
+//the updateWriter prop takes a function that takes a user and returns voide
+// it will match updateWriter in App.
 interface ILoginComponentProps {
-  updateUser: (user:User) => void;
+  updateWriter: (user:Writer) => void;
 }
 
 interface ILoginComponentState {
@@ -34,7 +33,7 @@ export class LoginComponent extends React.Component<ILoginComponentProps, ILogin
 
   //We'll need a few functions to modify individual pieces of our state
   // These take change events
-  setUsername = (un: any) => {
+  setWritername = (un: any) => {
     this.setState({
       username: un.currentTarget.value,
     })
@@ -58,14 +57,14 @@ export class LoginComponent extends React.Component<ILoginComponentProps, ILogin
     event.preventDefault();
     console.log(event);
     try {
-      const loggedInUser : User = await login(this.state.username, bcrypt.hashSync(this.state.password,10));
-      this.props.updateUser(loggedInUser);
+      const loggedInWriter : Writer = await login(this.state.username, this.state.password);
+      this.props.updateWriter(loggedInWriter);
       this.setState({
         username: '',
         password: '',
         success: true
       });
-      console.log(loggedInUser);
+      console.log(loggedInWriter);
     
     } catch (error) {
       this.setState({
@@ -85,7 +84,7 @@ export class LoginComponent extends React.Component<ILoginComponentProps, ILogin
       <span className="tag"> Login</span>
         <div>
           <label>Username</label>
-          <input onChange={this.setUsername} value={this.state.username} type="text" name="username"
+          <input onChange={this.setWritername} value={this.state.username} type="text" name="username"
            id="username" placeholder="your username"
            autoComplete={this.state.username} required/>
           </div>

@@ -5,7 +5,7 @@ export default class Home extends React.Component<any> {
     render(){
         return(
             <div className="home">
-            <p> Welcome to Reimburesement System</p>
+            <p> Welcome to the CMS</p>
             </div>
         )
     }
